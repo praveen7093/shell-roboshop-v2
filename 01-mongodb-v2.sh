@@ -20,4 +20,6 @@ validate $? "restarting MongoDB"
 systemctl restart mongod
 validate $? "restarting mongodb"
 
+total_time
+
 
