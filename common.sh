@@ -109,7 +109,7 @@ java_setup(){
 }
 python_setup(){
     dnf install python3.14 python3.14-pip -y &>> $logs_file
-    validate $? "installing pyhton 3.14"
+    validate $? "installing python 3.14"
 
     python3.14 --version
     validate $? "checking version"
