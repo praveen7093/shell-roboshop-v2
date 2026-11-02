@@ -1,6 +1,6 @@
 #!/bin/bash
 app_name=catalogue
-source ./common
+source ./common.sh
 
 echo "$(timestamp) [INFO] ===== script started execution======" | tee -a $logs_file
 check_root
