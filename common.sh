@@ -82,22 +82,7 @@ systemd_setup(){
     systemctl start $app_name &>> $logs_file    
     validate $? "starting and enabling the $app_name service"
 }
-# configure_dsetup(){
-#     [Unit]
-#     Description=$app_name Service
-#     After=network-online.target
 
-#     [Service]
-#     User=$app_name
-#     Environment=MONGO_URL="$app_name://$app_name.domain_name:27017/catalogue"
-#     ExecStart=/bin/node /app/server.js
-#     SyslogIdentifier=$app_name
-#     Restart=on-failure
-#     RestartSec=5
-
-#     [Install]
-#     WantedBy=multi-user.target
-# }
 restart(){
     systemctl restart $app_name
     validate $? "restarting $app_name"
