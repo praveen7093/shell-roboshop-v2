@@ -107,3 +107,16 @@ java_setup(){
     validate $? "moving shipping jar files"
 
 }
+python_setup(){
+    dnf install python3.14 python3.14-pip -y &>> $logs_file
+    validate $? "installing pyhton 3.14"
+
+    python3.14 --version
+    validate $? "checking version"
+
+    python3.14 -m venv /app/.venv &>> $logs_file
+    validate $? "creating virtual environment"
+
+    /app/.venv/bin/pip install -r requirements.txt &>> $logs_file
+    validate $? "installing dependencies"
+}
