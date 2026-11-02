@@ -1,6 +1,8 @@
 #!/bin/bash
 source ./common.sh
 check_root
+echo "$(timestamp) [INFO] ===== script started execution======" | tee -a $logs_file
+
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 validate $? "Adding mongo repo"
 
