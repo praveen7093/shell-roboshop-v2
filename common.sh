@@ -87,3 +87,23 @@ restart(){
     systemctl restart $app_name
     validate $? "restarting $app_name"
 }
+java_setup(){
+    dnf module enable maven:3.9 -y &>> logs_file
+    dnf install maven java-25-openjdk-devel -y &>> logs_file
+    validate $? "installing java and maven"
+
+    echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
+    source /etc/profile.d/java.sh
+    echo $JAVA_HOME
+    validate $? "setting JAVA_HOME for maven"
+
+    alternatives --set  java "/usr/lib/jvm/java-25-openjdk/bin/java"
+    validate $? "setting java 25 as default java version"
+
+    mvn clean package &>> $logs_file
+    validate $? "installing dependencies"
+
+    mv target/shipping.jar shipping.jar
+    validate $? "moving shipping jar files"
+
+}
