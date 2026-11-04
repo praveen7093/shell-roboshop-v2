@@ -3,7 +3,7 @@ app_name=shipping
 source ./common.sh
 
 check_root
-pp_setup
+app_setup
 java_setup
 systemd_setup
 
