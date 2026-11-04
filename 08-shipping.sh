@@ -7,8 +7,12 @@ app_setup
 java_setup
 systemd_setup
 
-count=$(mysql -h mysql.$domain_name -u root  -pRoboShop@1 -N -B -e "SELECT COUNT(*) FROM  cities.cities;" 2>> $logs_file)
-if [[ -z $count ]] || [ $count -eq 0]; then
+# Check MySQL client availability
+dnf install mariadb -y
+validate $? "installing MySQL client"
+
+count=$(mysql -h mysql.$domain_name -u root  -p'RoboShop@1' -N -B -e "SELECT COUNT(*) FROM  cities.cities;" 2>> $logs_file)
+if [[ -z $count ]] || [ $count -eq 0 ]; then
     # Load cities database and master data
     mysql -h mysql.$domain_name -u root -p'RoboShop@1' < /app/db/master-data.sql
     validate $? "loading cities master data"
